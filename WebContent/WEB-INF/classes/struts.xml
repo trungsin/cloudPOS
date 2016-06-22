@@ -1,0 +1,37 @@
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="default" extends="hibernate-default">
+		<result-types>
+	        <result-type name="json" class="com.googlecode.jsonplugin.JSONResult"/>
+	    </result-types>
+		<action name="gettable" method="add" class="vn.java.myPOS.action.BillAction">
+			<result name="success" type="json">
+			</result>
+		</action>
+		<action name="listBill" method="list" class="vn.java.myPOS.action.BillAction">
+			<result name="success" type="json">
+				
+			</result>
+		</action>
+		<action name="findMenuAction" method="list" class="vn.java.myPOS.action.MenuAction">
+			<!--  <result name="success" type="redirect">listMenu</result>-->
+			<result name="success" type="json">
+	          <param name="root">menuList</param>
+        	  <param name="excludeNullProperties">true</param>
+        	  <param name="noCache">true</param>
+	        </result>
+		</action>
+		<action name="updateMenu" method="edit" class="vn.java.myPOS.action.MenuAction">
+			<result name="success">/Menu.jsp</result>
+		</action>
+		<action name="save" method="saveOrUpdate" class="vn.java.myPOS.action.MenuAction">
+			<result name="redirect" type="redirect">${url}</result>
+		</action>
+		<action name="listMenu" method="listall" class="vn.java.myPOS.action.MenuAction">
+			<result name="success">/Menu.jsp</result>		
+		</action>
+	</package>
+</struts>
