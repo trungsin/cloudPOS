@@ -14,6 +14,8 @@
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
+    <script src="js/json2.js"></script>
+  
 <script type="text/javascript">
 
 angular.module('SetBill',['ngMaterial'])
@@ -131,6 +133,31 @@ angular.module('SetBill',['ngMaterial'])
 	      }
 	      console.log($scope.listFilterMenuSelected);
 	 };//toggleSelection
+	 $scope.saveBill = function()
+	 {
+		 console.log(JSON.stringify($scope.listMenuBill));
+		 $http({
+			  method  : 'POST',
+			  url     : 'saveBillAction',
+			  headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+			  transformRequest: function(obj) {
+			        var str = [];
+			        for(var p in obj)
+			        str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+			        return str.join("&");
+			    },
+			  data    : {strJson: JSON.stringify($scope.listMenuBill),target:"list"},  // pass in data as strings
+			  headers : { 'Content-Type': 'application/x-www-form-urlencoded' }  // set the headers so angular passing info as form data (not request payload)
+			 })
+		.success(
+               function(data, status, headers, config) {
+                       $scope.listFilterMenu = data;
+                       console.log(data);
+                       
+               }).error(function(data, status, headers, config) {
+                              
+       });
+     };//end function saveBill
 });
 </script>
 </head>
@@ -180,6 +207,10 @@ angular.module('SetBill',['ngMaterial'])
 		    <td>{{ bill.menu.update_time }}</td>
 		</tr>
 		<tr>
+			<td colspan="4" >
+				<button type="button" ng-click="saveBill();">Save Bill</button>
+			</td>
+		</tr>
 	</table>
 	List Menu To SELECT: <input name="namemenu" ng-name="namemenu" ng-change="findByNameMenu();" ng-model="namemenu" />
 	<table class="menuTable" cellpadding="5px">

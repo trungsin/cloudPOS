@@ -7,6 +7,6 @@ public interface MenuDAO {
 	
 	public void saveMenu(Menu menu);
 	public List<Menu> listMenu(String strFind);
-	public List<Menu> listMenu(List<String> ids);
+	public List<Menu> listMenu(List<Integer> ids);
 	public Menu getMenu(int id);
 }

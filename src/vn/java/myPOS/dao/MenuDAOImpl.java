@@ -38,14 +38,14 @@ public class MenuDAOImpl implements MenuDAO{
 		} 
 		return courses;
 	}
-	public List<Menu> listMenu(List<String> ids){
+	public List<Menu> listMenu(List<Integer> ids){
 		List<Menu> courses = null;
 		String sql;
 		try {
 			if((ids != null) && !ids.isEmpty()){
 				sql = "from Menu WHERE id in (:ids)";
 				String idss = StringUtils.join(ids,',');
-				courses = session.createQuery(sql).setParameter("ids",idss).list();	
+				courses = session.createQuery(sql).setParameterList("ids",ids).list();	
 			} else {
 				sql = "from Menu";
 				courses = session.createQuery(sql).list();

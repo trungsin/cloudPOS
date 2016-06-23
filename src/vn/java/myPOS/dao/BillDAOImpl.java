@@ -1,5 +1,6 @@
 package vn.java.myPOS.dao;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -29,7 +30,7 @@ public class BillDAOImpl implements BillDAO{
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<vn.java.myPOS.model.BillMenu> listBill(int bill_id){
-		List<vn.java.myPOS.model.BillMenu> courses = null;
+		List<vn.java.myPOS.model.BillMenu> courses = new ArrayList<vn.java.myPOS.model.BillMenu>();
 		try {
 			String sql ="from BillMenu WHERE bill_id =:bill_id";
 			listbill = session.createQuery(sql).setParameter("bill_id",bill_id).list().iterator();
